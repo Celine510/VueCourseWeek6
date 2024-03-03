@@ -33,9 +33,7 @@
                   </td>
                   <td>
                     {{ item.product.title }}
-                    <div class="text-success" v-if="item.coupon">
-                      已套用優惠券
-                    </div>
+                    <div class="text-success" v-if="item.coupon">已套用優惠券</div>
                   </td>
                   <td>
                     <div class="input-group input-group-sm">
@@ -43,9 +41,7 @@
                     </div>
                   </td>
                   <td class="text-end">
-                    <small
-                      v-if="cart.final_total !== cart.total"
-                      class="text-success"
+                    <small v-if="cart.final_total !== cart.total" class="text-success"
                       >折扣價：</small
                     >
                     {{ item.final_total }}
@@ -67,12 +63,7 @@
         </div>
       </div>
       <div class="my-5 row justify-content-center">
-        <VeeForm
-          ref="form"
-          class="col-md-6"
-          v-slot="{ errors }"
-          @submit="createOrder"
-        >
+        <VeeForm ref="form" class="col-md-6" v-slot="{ errors }" @submit="createOrder">
           <div class="mb-3">
             <label for="email" class="form-label">Email</label>
             <VeeField
@@ -158,69 +149,69 @@ export default {
   data() {
     return {
       loadingStatus: {
-        loadingItem: "",
+        loadingItem: ''
       },
       isLoading: false,
       cart: {},
       form: {
         user: {
-          name: "",
-          email: "",
-          tel: "",
-          address: "",
+          name: '',
+          email: '',
+          tel: '',
+          address: ''
         },
-        message: "",
+        message: ''
       },
-      coupon_code: "",
-    };
+      coupon_code: ''
+    }
   },
   mounted() {
-    this.getCart();
+    this.getCart()
   },
   methods: {
     getCart() {
-      this.isLoading = true;
-      const url = `${import.meta.env.VITE_API}api/${import.meta.env.VITE_PATH}/cart`;
+      this.isLoading = true
+      const url = `${import.meta.env.VITE_API}api/${import.meta.env.VITE_PATH}/cart`
       this.$http.get(url).then((response) => {
         if (response.data.success) {
-          this.cart = response.data.data;
-          this.isLoading = false;
+          this.cart = response.data.data
+          this.isLoading = false
         } else {
-          alert(response.data.message);
+          alert(response.data.message)
         }
-      });
+      })
     },
     removeCartItem(id) {
-      this.isLoading = true;
-      const url = `${import.meta.env.VITE_API}api/${import.meta.env.VITE_PATH}/cart/${id}`;
-      this.loadingStatus.loadingItem = id;
+      this.isLoading = true
+      const url = `${import.meta.env.VITE_API}api/${import.meta.env.VITE_PATH}/cart/${id}`
+      this.loadingStatus.loadingItem = id
       this.$http
         .delete(url)
         .then((response) => {
-          alert(response.data.message);
-          this.getCart();
+          alert(response.data.message)
+          this.getCart()
         })
         .catch((err) => {
-          alert(err.response.data.message);
-        });
-      this.loadingStatus.loadingItem = "";
-      this.isLoading = false;
+          alert(err.response.data.message)
+        })
+      this.loadingStatus.loadingItem = ''
+      this.isLoading = false
     },
     createOrder() {
-      this.isLoading = true;
-      const url = `${import.meta.env.VITE_API}api/${import.meta.env.VITE_PATH}/order`;
-      const order = this.form;
+      this.isLoading = true
+      const url = `${import.meta.env.VITE_API}api/${import.meta.env.VITE_PATH}/order`
+      const order = this.form
       this.$http
         .post(url, { data: order })
         .then((response) => {
-          alert(response.data.message);
-          this.$refs.form.resetForm();
-          this.isLoading = false;
+          alert(response.data.message)
+          this.$refs.form.resetForm()
+          this.isLoading = false
         })
         .catch((err) => {
-          alert(err.response.data.message);
-        });
-    },
-  },
-};
+          alert(err.response.data.message)
+        })
+    }
+  }
+}
 </script>

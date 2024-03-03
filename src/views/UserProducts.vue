@@ -14,11 +14,10 @@
       <tbody>
         <tr v-for="item in products" :key="item.id">
           <td style="width: 200px">
-            <div style="
-                height: 100px;
-                background-size: cover;
-                background-position: center;
-              " :style="{ backgroundImage: `url(${item.imageUrl})` }"></div>
+            <div
+              style="height: 100px; background-size: cover; background-position: center"
+              :style="{ backgroundImage: `url(${item.imageUrl})` }"
+            ></div>
           </td>
           <td>
             {{ item.title }}
@@ -30,13 +29,21 @@
           </td>
           <td>
             <div class="btn-group btn-group-sm">
-              <button type="button" class="btn btn-outline-secondary" @click="getProduct(item.id)"
-                :disabled="loadingStatus.loadingItem === item.id">
+              <button
+                type="button"
+                class="btn btn-outline-secondary"
+                @click="getProduct(item.id)"
+                :disabled="loadingStatus.loadingItem === item.id"
+              >
                 <i class="fas fa-spinner fa-pulse" v-if="loadingStatus.loadingItem === item.id"></i>
                 查看更多
               </button>
-              <button type="button" class="btn btn-outline-danger" @click="addToCart(item.id)"
-                :disabled="loadingStatus.loadingItem === item.id">
+              <button
+                type="button"
+                class="btn btn-outline-danger"
+                @click="addToCart(item.id)"
+                :disabled="loadingStatus.loadingItem === item.id"
+              >
                 <i class="fas fa-spinner fa-pulse" v-if="loadingStatus.loadingItem === item.id"></i>
                 加到購物車
               </button>
@@ -50,74 +57,74 @@
 </template>
 
 <script>
-import UserProductModal from "@/components/UserProductModal.vue";
+import UserProductModal from '@/components/UserProductModal.vue'
 export default {
   data() {
     return {
       products: [],
       loadingStatus: {
-        loadingItem: "",
+        loadingItem: ''
       },
       isLoading: false,
-      product: {},
-    };
+      product: {}
+    }
   },
   components: {
-    UserProductModal,
+    UserProductModal
   },
   mounted() {
-    this.getProducts();
+    this.getProducts()
   },
   methods: {
     addToCart(id, qty = 1) {
-      this.isLoading = true;
-      const url = `${import.meta.env.VITE_API}api/${import.meta.env.VITE_PATH}/cart`;
-      this.loadingStatus.loadingItem = id;
+      this.isLoading = true
+      const url = `${import.meta.env.VITE_API}api/${import.meta.env.VITE_PATH}/cart`
+      this.loadingStatus.loadingItem = id
       const cart = {
         product_id: id,
-        qty,
-      };
+        qty
+      }
       this.$http
         .post(url, { data: cart })
         .then((response) => {
-          alert(response.data.message);
-          this.loadingStatus.loadingItem = "";
-          this.$refs.userProductModal.hideModal();
-          this.isLoading = false;
+          alert(response.data.message)
+          this.loadingStatus.loadingItem = ''
+          this.$refs.userProductModal.hideModal()
+          this.isLoading = false
         })
         .catch((err) => {
-          alert(err.response.data.message);
-        });
+          alert(err.response.data.message)
+        })
     },
     getProducts() {
-      this.isLoading = true;
-      const url = `${import.meta.env.VITE_API}api/${import.meta.env.VITE_PATH}/products`;
+      this.isLoading = true
+      const url = `${import.meta.env.VITE_API}api/${import.meta.env.VITE_PATH}/products`
       this.$http
         .get(url)
         .then((response) => {
-          this.products = response.data.products;
-          this.isLoading = false;
+          this.products = response.data.products
+          this.isLoading = false
         })
         .catch((err) => {
-          alert(err.response.data.message);
-        });
+          alert(err.response.data.message)
+        })
     },
     getProduct(id) {
-      this.isLoading = true;
-      const url = `${import.meta.env.VITE_API}api/${import.meta.env.VITE_PATH}/product/${id}`;
-      this.loadingStatus.loadingItem = id;
+      this.isLoading = true
+      const url = `${import.meta.env.VITE_API}api/${import.meta.env.VITE_PATH}/product/${id}`
+      this.loadingStatus.loadingItem = id
       this.$http
         .get(url)
         .then((response) => {
-          this.loadingStatus.loadingItem = "";
-          this.product = response.data.product;
-          this.isLoading = false;
-          this.$refs.userProductModal.openModal();
+          this.loadingStatus.loadingItem = ''
+          this.product = response.data.product
+          this.isLoading = false
+          this.$refs.userProductModal.openModal()
         })
         .catch((err) => {
-          alert(err.response.data.message);
-        });
-    },
-  },
-};
+          alert(err.response.data.message)
+        })
+    }
+  }
+}
 </script>

@@ -27,9 +27,7 @@
           />
         </div>
         <div class="text-end mt-4">
-          <button class="btn btn-lg btn-primary btn-block" type="submit">
-            登入
-          </button>
+          <button class="btn btn-lg btn-primary btn-block" type="submit">登入</button>
         </div>
       </div>
     </form>
@@ -40,23 +38,23 @@
 export default {
   data() {
     return {
-      user: {},
-    };
+      user: {}
+    }
   },
   methods: {
     signIn() {
-      const api = `${import.meta.env.VITE_API}admin/signin`;
+      const api = `${import.meta.env.VITE_API}admin/signin`
       this.$http
         .post(api, this.user)
         .then((response) => {
-          const { token, expired } = response.data;
-          document.cookie = `hexToken=${token};expires=${new Date(expired)};`;
-          this.$router.push("/admin/products");
+          const { token, expired } = response.data
+          document.cookie = `hexToken=${token};expires=${new Date(expired)};`
+          this.$router.push('/admin/products')
         })
         .catch((err) => {
-          alert(err.response.data.message);
-        });
-    },
-  },
-};
+          alert(err.response.data.message)
+        })
+    }
+  }
+}
 </script>

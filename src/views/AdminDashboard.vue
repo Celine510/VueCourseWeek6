@@ -16,41 +16,38 @@
 export default {
   data() {
     return {
-      checkSuccess: false,
-    };
+      checkSuccess: false
+    }
   },
   mounted() {
-    this.checkLogin();
+    this.checkLogin()
   },
   methods: {
     checkLogin() {
-      const token = document.cookie.replace(
-        /(?:(?:^|.*;\s*)hexToken\s*=\s*([^;]*).*$)|^.*$/,
-        "$1"
-      );
+      const token = document.cookie.replace(/(?:(?:^|.*;\s*)hexToken\s*=\s*([^;]*).*$)|^.*$/, '$1')
       if (token) {
         // Axios 預設值
-        this.$http.defaults.headers.common.Authorization = `${token}`;
-        const api = `${import.meta.env.VITE_API}api/user/check`;
+        this.$http.defaults.headers.common.Authorization = `${token}`
+        const api = `${import.meta.env.VITE_API}api/user/check`
         this.$http
           .post(api, { api_token: this.token })
           .then(() => {
-            this.checkSuccess = true;
+            this.checkSuccess = true
           })
           .catch((err) => {
-            alert(err.response.data.message);
-            this.$router.push("/login");
-          });
+            alert(err.response.data.message)
+            this.$router.push('/login')
+          })
       } else {
-        alert("您尚未登入。");
-        this.$router.push("/login");
+        alert('您尚未登入。')
+        this.$router.push('/login')
       }
     },
     signout() {
-      document.cookie = "hexToken=;expires=;";
-      alert("token 已清除");
-      this.$router.push("/login");
-    },
-  },
-};
+      document.cookie = 'hexToken=;expires=;'
+      alert('token 已清除')
+      this.$router.push('/login')
+    }
+  }
+}
 </script>

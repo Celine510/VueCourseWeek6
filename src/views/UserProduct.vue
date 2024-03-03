@@ -9,20 +9,20 @@
 export default {
   data() {
     return {
-      product: {},
-    };
+      product: {}
+    }
   },
   mounted() {
-    const { id } = this.$route.params;
-    const url = `${import.meta.env.VITE_API}api/${import.meta.env.VITE_PATH}/product/${id}`;
+    const { id } = this.$route.params
+    const url = `${import.meta.env.VITE_API}api/${import.meta.env.VITE_PATH}/product/${id}`
     this.$http
       .get(url)
       .then((response) => {
-        this.product = response.data.product;
+        this.product = response.data.product
       })
       .catch((err) => {
-        alert(err.response.data.message);
-      });
-  },
-};
+        alert(err.response.data.message)
+      })
+  }
+}
 </script>

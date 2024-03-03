@@ -17,16 +17,8 @@
         :key="page"
         :class="{ active: pages.current_page === page }"
       >
-        <span class="page-link" v-if="page === pages.current_page">{{
-          page
-        }}</span>
-        <a
-          class="page-link"
-          v-else
-          href="#"
-          @click.prevent="updatePage(page)"
-          >{{ page }}</a
-        >
+        <span class="page-link" v-if="page === pages.current_page">{{ page }}</span>
+        <a class="page-link" v-else href="#" @click.prevent="updatePage(page)">{{ page }}</a>
       </li>
       <li class="page-item" :class="{ disabled: !pages.has_next }">
         <a
@@ -49,8 +41,8 @@ export default {
   props: ['pages'],
   methods: {
     updatePage(page) {
-      this.$emit('emitPages', page);
-    },
-  },
-};
+      this.$emit('emitPages', page)
+    }
+  }
+}
 </script>

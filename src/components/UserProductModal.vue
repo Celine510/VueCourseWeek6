@@ -27,28 +27,15 @@
               <img class="img-fluid" :src="product.imagesUrl" alt="" />
             </div>
             <div class="col-sm-6">
-              <span class="badge bg-primary rounded-pill">{{
-                product.category
-              }}</span>
+              <span class="badge bg-primary rounded-pill">{{ product.category }}</span>
               <p>商品描述：{{ product.description }}</p>
               <p>商品內容：{{ product.content }}</p>
-              <div class="h5" v-if="!product.price">
-                {{ product.origin_price }} 元
-              </div>
-              <del class="h6" v-if="product.price"
-                >原價 {{ product.origin_price }} 元</del
-              >
-              <div class="h5" v-if="product.price">
-                現在只要 {{ product.price }} 元
-              </div>
+              <div class="h5" v-if="!product.price">{{ product.origin_price }} 元</div>
+              <del class="h6" v-if="product.price">原價 {{ product.origin_price }} 元</del>
+              <div class="h5" v-if="product.price">現在只要 {{ product.price }} 元</div>
               <div>
                 <div class="input-group">
-                  <input
-                    type="number"
-                    class="form-control"
-                    v-model.number="qty"
-                    min="1"
-                  />
+                  <input type="number" class="form-control" v-model.number="qty" min="1" />
                   <button
                     type="button"
                     class="btn btn-primary"
@@ -68,39 +55,38 @@
 </template>
 
 <script>
-import Modal from 'bootstrap/js/dist/modal';
+import Modal from 'bootstrap/js/dist/modal'
 export default {
   props: {
     product: {
       type: Object,
       default() {
-        return {};
-      },
-    },
+        return {}
+      }
+    }
   },
   data() {
     return {
       status: {},
       modal: '',
-      qty: 1,
-    };
+      qty: 1
+    }
   },
   mounted() {
     this.modal = new Modal(this.$refs.modal, {
       keyboard: false,
       backdrop: 'static'
-    });
+    })
   },
   methods: {
     openModal() {
-      this.modal.show();
+      this.modal.show()
     },
     hideModal() {
-      this.modal.hide();
-    },
-  },
+      this.modal.hide()
+    }
+  }
 }
 </script>
 
-<style>
-</style>
+<style></style>

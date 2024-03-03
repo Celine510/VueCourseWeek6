@@ -33,36 +33,38 @@
 </template>
 
 <script>
-import Pagination from "@/components/Pagination.vue";
+import Pagination from '@/components/Pagination.vue'
 
 export default {
-  props: ["token"],
+  props: ['token'],
   data() {
     return {
       products: [],
-      pagination: {},
-    };
+      pagination: {}
+    }
   },
   components: {
-    Pagination,
+    Pagination
   },
   methods: {
     getProducts(page = 1) {
       // API
-      const api = `${import.meta.env.VITE_API}api/${import.meta.env.VITE_PATH}/admin/products?page=${page}`;
+      const api = `${import.meta.env.VITE_API}api/${
+        import.meta.env.VITE_PATH
+      }/admin/products?page=${page}`
       this.$http
         .get(api)
         .then((response) => {
-          this.products = response.data.products;
-          this.pagination = response.data.pagination;
+          this.products = response.data.products
+          this.pagination = response.data.pagination
         })
         .catch((err) => {
-          alert(err.response.data.message);
-        });
-    },
+          alert(err.response.data.message)
+        })
+    }
   },
   mounted() {
-    this.getProducts();
-  },
-};
+    this.getProducts()
+  }
+}
 </script>

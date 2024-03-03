@@ -1,4 +1,4 @@
-import { createRouter, createWebHashHistory } from 'vue-router';
+import { createRouter, createWebHashHistory } from 'vue-router'
 
 const routes = [
   {
@@ -7,29 +7,29 @@ const routes = [
     children: [
       {
         path: '',
-        component: () => import('@/views/UserHome.vue'),
+        component: () => import('@/views/UserHome.vue')
       },
       {
         path: '/products',
         name: '產品列表',
-        component: () => import('@/views/UserProducts.vue'),
+        component: () => import('@/views/UserProducts.vue')
       },
       {
         path: '/product/:id',
         name: '產品頁面',
-        component: () => import('@/views/UserProduct.vue'),
+        component: () => import('@/views/UserProduct.vue')
       },
       {
         path: '/cart',
         name: '購物車',
-        component: () => import('@/views/UserCart.vue'),
-      },
-    ],
+        component: () => import('@/views/UserCart.vue')
+      }
+    ]
   },
   // 巢狀路由
   {
     path: '/login',
-    component: () => import('@/views/UserLogin.vue'),
+    component: () => import('@/views/UserLogin.vue')
   },
   {
     path: '/admin',
@@ -37,14 +37,14 @@ const routes = [
     children: [
       {
         path: 'products',
-        component: () => import('@/views/AdminProducts.vue'),
+        component: () => import('@/views/AdminProducts.vue')
       },
       {
         path: 'orders',
-        component: () => import('@/views/AdminOrders.vue'),
-      },
-    ],
-  },
+        component: () => import('@/views/AdminOrders.vue')
+      }
+    ]
+  }
 ]
 
 const router = createRouter({
@@ -52,4 +52,4 @@ const router = createRouter({
   routes
 })
 
-export default router;
+export default router
